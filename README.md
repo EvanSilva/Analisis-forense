@@ -1,5 +1,9 @@
-# Borrado de datos  
-Evan Silva Gonzalez
+# Borrado de Datos  
+**Autor:** Evan Silva González  
+
+> Un manual práctico, claro y con una dosis mínima de humor para sobrevivir al mundo del análisis forense (sin romper ningún disco... al menos sin querer).
+
+---
 
 ## Índice
 - [Los peritos y su trabajo](#los-peritos-y-su-trabajo)  
@@ -10,178 +14,224 @@ Evan Silva Gonzalez
 - [Habilidades de los peritos](#habilidades-de-los-peritos)  
 - [Eliminación y recuperación de información](#eliminación-y-recuperación-de-información)  
 - [Discos SSD](#discos-ssd)  
-- [Metodos de uso](#metodos-de-uso)  
+- [Métodos de uso](#métodos-de-uso)  
 - [Recuva (Windows)](#recuva-windows)  
-- [PhotoRec (Linux / Windows / macOS)](#photorec-linux--windows--macos)  
+- [PhotoRec (Linux--windows--macos)](#photorec-linux--windows--macos)  
 - [Foremost (Linux)](#foremost-linux)  
 - [Scalpel (Linux)](#scalpel-linux)  
-- [ADVERTENCIA IMPORTANTE (Borrado SSD)](#advertencia-importante-borrado-ssd)  
+- [Advertencia importante (Borrado SSD)](#advertencia-importante-borrado-ssd)  
 - [Ver los discos del sistema](#ver-los-discos-del-sistema-linux)  
 - [Montar un disco en Linux](#montar-un-disco-en-linux)
 
-# Resumen del ejercicio actividad de borrado permanente.
+---
+
+# Resumen del ejercicio: Borrado permanente de datos
 
 ## Los peritos y su trabajo
-Los peritos son una parte importante de procesos de recogida de información, existiendo dos tipos, corporativos y judiciales o legislativos.  
-Es importante comprender que los procesos por los que se evalua la información para cada tipo de proceso es diferente.
+Los peritos son fundamentales en los procesos de recogida y análisis de información. Existen dos tipos principales:
 
-- En los corporativos, todo es mas “Laxo”, los limites y la información que quiere recogerse suele no necesitar una solidez judicial, es decir, temas como revisar correos o ver algún log que indique que un empleado ha visitado alguna página web que no debia según los estatutos de la empresa.  
-- En los judiciales todo requiere mas rigurosidad. NO se puede acceder a la información directamente, solo a través de clonados en solo lectura, las pruebas originales deben estar sin adulterar o es probable que pierdan validez en el juicio.
+### Peritaje corporativo
+- El entorno corporativo suele ser más relajado (pero sin pasarse).  
+- Normalmente no se espera que la evidencia tenga la misma fortaleza legal que en un juicio.  
+- Ejemplos: revisar correos, logs internos, páginas visitadas, etc.
 
-Mucho mas importante es la documentación, un perito debe siempre anotar sus pasos y dejar un rastro de sus acciones, toda prueba que recabe ha de ser reproducible y debe estar regisrada. Las pruebas de un perito.
+### Peritaje judicial
+- Aquí empieza la seriedad nivel “jefe final”.  
+- Toda evidencia debe ser tratada con procedimientos estrictos.  
+- Nunca se trabaja directamente sobre los datos originales: solo sobre copias forenses en modo solo lectura.  
+- Si alteras la evidencia… el juez puede alterarse también.
+
+Además, la documentación es clave. Un perito debe:
+- Registrar cada paso.  
+- Asegurar que todo es reproducible.  
+- Mantener una cadena de custodia impecable.
+
+Porque si no está documentado… no existe.
+
+---
 
 ## Gestión de un caso forense
 
 ## Puntos clave
-- La vitácora y una linea temporal son imprescindibles, se toman en la fase de analisis.
-- Notas de lo que se ha hecho, tanto en la fase de analsisis como en la fase de recuperación de datos.
-- Sistema de directorio/carpetas cronologicamente.
-- Ser ordenado.
-- Demostrar la investigación con fotos.
-- Oxygen Forensics, Belkasoft, XRY son referentes en forma de herramientas forenses.
+- La bitácora y una línea temporal son imprescindibles, especialmente en la fase de análisis.  
+- Registrar todo lo realizado en el análisis y en la recuperación.  
+- Usar una estructura de carpetas cronológica y ordenada.  
+- Demostrar cada paso con fotos o capturas.  
+- Herramientas de referencia: Oxygen Forensics, Belkasoft, XRY.
+
+---
 
 ## Un equipo de forenses
-- Cuidado con utilizar herramientas de la nube para compartir información, File Browser sirve para compartir datos en nubes propias. Nextcloud tambien puede crear una nube propia. Ser precabido de la nube publica porque pueden haber ataques.
+- Evita compartir datos sensibles en nubes públicas.  
+- Alternativas recomendadas: File Browser o Nextcloud para nubes privadas.  
+- Recuerda: la nube pública es cómoda… hasta que deja de serlo.
+
+---
 
 ## Tipos de peritos
-- Perito judicial: contratado por parte del organismo en si. El juéz.
-- Perito de parte: contratado por una parte, son menos imparciales. Y pueden no indagar dónde no se interese.
-- Perito tercero o dirimente: en caso de discrepancia grave entre varios peritos, desempatan. Lo nombra el juez en caso de ser judicial, en arbitrajes entre empresas, lo seleccionan entre ambas partes.
+- Perito judicial: designado por el propio tribunal.  
+- Perito de parte: contratado por alguna de las partes del conflicto; puede estar sesgado.  
+- Perito tercero o dirimente: interviene cuando hay conflicto entre peritos; lo nombra el juez.
+
+---
 
 ## Habilidades de los peritos
-- Aseguramiento de la escena  
-- Recolección de pruebas  
-- Preservación de pruebas  
-- Manejo de la cadena de custodia  
-- Análisis de evidencias  
-- Generación de dictámenes  
-- Conocimiento legislativo  
+- Aseguramiento de la escena.  
+- Recolección y preservación de pruebas.  
+- Manejo de la cadena de custodia.  
+- Análisis técnico y elaboración de dictámenes.  
+- Conocimientos legislativos.  
+
+---
 
 # Eliminación y recuperación de información
 
+## Discos HDD
+El borrado de datos puede hacerse de varias formas:
+
+### Eliminación normal
+- “Eliminar” un archivo no lo elimina realmente.  
+- Se elimina el enlace en la tabla del sistema de archivos; los datos siguen ahí.  
+- Son recuperables fácilmente.
+
+### Borrado seguro o saneado
+- Sobrescribe los bits con datos aleatorios.  
+- Herramientas: `wipe`, `shred`, `scrub`.  
+- Puede realizar varias pasadas, lo que hace la recuperación prácticamente imposible.
+
+### Destrucción física
+- Aplicable cuando necesitas que el disco deje de existir de verdad.  
+- Técnicas: romper, perforar, rayar (con cariño no, con ganas).  
+- Los HDD están sellados herméticamente, pero eso no evita que un martillo haga su magia.
+
+### Recuperación de datos
+- Depende del sistema de archivos (FAT/NTFS/ext).  
+- Cuanto mayor sea el disco, más lenta la recuperación.  
+- Herramientas distintas recuperan resultados distintos.
+
+Siempre que hagas un proceso de borrado, realiza un informe. Sin informe, solo has borrado “porque sí”.
+
+---
+
 ## Discos SSD
-El borrado de datos tiene varios tipos, la eliminación y el borrado seguro sanetizado y la destrucción física.
+Los SSD funcionan de forma diferente:
 
-- La eliminación es simplemente clickar y darle a eliminar, los sistemas suelen NO borrar los archivos, si no que desenlazan las celdad de inicio/fin de archivo de la tabla de memoria, lo que hace que el sistema crea que no hay nada, y a futuro escriba por encima, son RECUPERABLES.  
-- La eliminación seguro o sanetizado lo que hace es, en primer lugar, sobreescribir sobre los bits de memoria información aleatoria, comandos como wipe o shred hacen que la información quede totalmente inutilizada en los bits literales del disco y luego poder eliminarlos. El comando scrub hace lo mismo, pero se puede hacer que haga varias pasadas, haciéndo que sea imposible.  
-- La eliminación en físico es literalmente romper, rallar, destrozar el disco físico. Los discos HDD están sellados de manera hermética.  
-- La recuperación en estos casos es dependiente del tipo de sistema de guardado de archivos (FAT/NTFS – sdb1/sdb2). En los discos grandes, las herramientas de recuperado serán lentas y habrá muchos datos intrinsecos temporales. En discos pequeños, la recuperación es mas guiada y eficiente, asi como exitosa.  
-- Dependiendo de la herramienta, se recuperarán diferentes archivos en menor o mejor medida.  
+- Tienen TRIM, que mueve los datos internamente.  
+- No se puede sobrescribir un sector concreto como en un HDD.  
+- Para un borrado seguro suele ser necesario borrar todo el disco completo.  
+- Existen herramientas y comandos específicos para ello.
 
-Es importante a la hora de hacér un borrado, realizar un informe, siempre.
+---
 
-## Discos SSD
-El borrado de datos en los discos SSD son ligeramente diferentes.
-
-- Los discos SSD tienen triming, por lo que mueven la memoria a traves de todo el disco ssd, y no funcionan como las celdas de un HDD. Hay que tilizar herramientas diferentes para ELIMINAR totalmente el disco, hay herramientas que sobre-escriben y eliminan todo el disco SSD. No es eficiente ni util borrar ciertas partes, asi que por defecto se borra todo el disco de alante a atrás.
-
-# Metodos de uso
+# Métodos de uso
 
 ## Recuva (Windows)
-Recuva es principalmente gráfico (GUI), así que su “comando básico” es simplemente ejecutarlo.
+Aplicación GUI (interfaz gráfica).
 
-**Uso básico**  
+Uso básico:  
 1. Instalar y abrir Recuva.  
-2. El asistente pregunta qué quieres recuperar → elige All Files o el tipo deseado.  
-3. Seleccionar ubicación a analizar.  
-4. Activar Deep Scan si quieres un análisis más profundo.  
-5. Recuperar los archivos encontrados.
+2. Elegir el tipo de archivo a recuperar.  
+3. Seleccionar ubicación.  
+4. Activar “Deep Scan” si es necesario.  
+5. Recuperar los resultados.
 
-Recuva no se usa normalmente por comandos en consola.
+---
 
 ## PhotoRec (Linux / Windows / macOS)
-PhotoRec funciona por menú interactivo en terminal.
+Funciona en terminal con menú interactivo.
 
-**Comando básico**
-```
+Comando básico:
+```bash
 sudo photorec
 ```
 
-**Pasos dentro del programa**
-1. Selecciona el disco a analizar.  
-2. Selecciona la partición (o “Whole disk”).  
-3. Elige el tipo de sistema de archivos (normalmente "Other").  
-4. Selecciona Free o Whole.  
-5. Elige carpeta donde guardar los archivos recuperados.  
+Pasos:
+1. Elegir disco.  
+2. Elegir partición.  
+3. Elegir sistema de archivos (normalmente “Other”).  
+4. Escoger Free o Whole.  
+5. Seleccionar carpeta donde guardar los archivos.
+
+---
 
 ## Foremost (Linux)
 
-**Comando básico**
-```
+Comando básico:
+```bash
 sudo foremost -i /dev/sdX -o /ruta/salida
 ```
 
-**Ejemplos**
-
+Ejemplos  
 Recuperar desde imagen:
-```
+```bash
 sudo foremost -i disco.img -o output/
 ```
 
 Recuperar solo JPG y PDF:
-```
+```bash
 sudo foremost -i /dev/sdX -o output/ -t jpg,pdf
 ```
 
+---
+
 ## Scalpel (Linux)
 
-### Habilitar tipos de archivos
-Editar:
-```
+Habilitar tipos de archivo:
+```bash
 sudo nano /etc/scalpel/scalpel.conf
 ```
+Quitar el `#` de los tipos que quieras recuperar.
 
-→ Quitar el `#` de las extensiones que quieras recuperar (jpg, pdf, etc.)
-
-Comando básico
-```
+Comando básico:
+```bash
 sudo scalpel /dev/sdX -o output/
 ```
 
-Desde una imagen:
-```
+Desde imagen:
+```bash
 sudo scalpel disco.img -o output
 ```
 
-# ADVERTENCIA IMPORTANTE (Borrado SSD)
-Los comandos de hdparm pueden borrar todo el contenido de un disco de forma irreversible.  
-Asegúrate al 100% de que el disco que vas a borrar es el correcto (NO la partición donde estás trabajando).
+---
 
-### 1. Ver si el disco soporta Secure Erase
-```
+# Advertencia importante (Borrado SSD)
+Los comandos de `hdparm` pueden borrar todo el contenido del disco de forma irreversible.
+
+En serio: revisa el disco dos veces. O tres. Tu futuro yo te lo agradecerá.
+
+### 1. Comprobar soporte de Secure Erase
+```bash
 sudo hdparm -I /dev/sdX
 ```
 
-Buscar líneas como:
-- supported: enhanced erase  
-- supported: security erase  
-
-### Ver el estado de seguridad del disco
-```
+### 2. Ver estado de seguridad
+```bash
 sudo hdparm -I /dev/sdX | grep -i security
 ```
 
-Si dice *frozen*, no podrás borrarlo.
+Si aparece “frozen”, no podrás borrarlo.
 
-### 3. Poner una clave temporal (requerido por el estándar ATA)
-```
+### 3. Establecer contraseña temporal
+```bash
 sudo hdparm --user-master u --security-set-pass pwd /dev/sdX
 ```
 
-### 4. Ejecutar Secure Erase (borrado seguro estándar)
-```
+### 4. Ejecutar Secure Erase
+```bash
 sudo hdparm --user-master u --security-erase pwd /dev/sdX
 ```
 
 ### 5. Secure Erase Enhanced
-```
+```bash
 sudo hdparm --user-master u --security-erase-enhanced pwd /dev/sdX
 ```
 
 ### 6. Verificar desbloqueo
-```
+```bash
 sudo hdparm -I /dev/sdX | grep -i security
 ```
+
+---
 
 # Resumen rápido
 
@@ -192,38 +242,40 @@ sudo hdparm -I /dev/sdX | grep -i security
 | Secure Erase | `hdparm --security-erase pwd /dev/sdX` |
 | Secure Erase Enhanced | `hdparm --security-erase-enhanced pwd /dev/sdX` |
 
+---
+
 # Ver los discos del sistema (Linux)
 
 ### 1. Listar discos y particiones
-```
+```bash
 lsblk
 ```
 
 ### 2. Ver detalles completos
-```
+```bash
 sudo fdisk -l
 ```
+
+---
 
 # Montar un disco en Linux
 
 ### Crear el punto de montaje
-```
+```bash
 sudo mkdir /mnt/mi_disco
 ```
 
 ### Montar la partición
-Ejemplo para `/dev/sdb1`:
-```
+```bash
 sudo mount /dev/sdb1 /mnt/mi_disco
 ```
 
 ### Desmontar
-```
+```bash
 sudo umount /mnt/mi_disco
 ```
 
-### Montaje opcional con tipo de sistema de archivos
-```
+### Montaje especificando sistema de archivos
+```bash
 sudo mount -t ext4 /dev/sdb1 /mnt/mi_disco
 ```
-
