@@ -1,9 +1,3 @@
-Perfecto.
-Aquí tienes **el Markdown RAW**, sin bloques adicionales, **listo para copiar y pegar directamente en un archivo `.md`**.
-
----
-
-````markdown
 # Borrado de datos  
 Evan Silva Gonzalez
 
@@ -231,6 +225,4 @@ sudo umount /mnt/mi_disco
 ```
 sudo mount -t ext4 /dev/sdb1 /mnt/mi_disco
 ```
-````
 
----
