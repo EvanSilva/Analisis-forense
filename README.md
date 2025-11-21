@@ -112,6 +112,7 @@ sudo foremost -i /dev/sdX -o /ruta/salida
 ```
 
 **Ejemplos**
+
 Recuperar desde imagen:
 ```
 sudo foremost -i disco.img -o output/
@@ -132,7 +133,7 @@ sudo nano /etc/scalpel/scalpel.conf
 
 → Quitar el `#` de las extensiones que quieras recuperar (jpg, pdf, etc.)
 
-### Comando básico
+Comando básico
 ```
 sudo scalpel /dev/sdX -o output/
 ```
