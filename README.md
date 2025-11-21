@@ -48,6 +48,8 @@ Además, la documentación es clave. Un perito debe:
 
 Porque si no está documentado… no existe.
 
+- Los peritajes corpotativos pueden volverse judiciales. Un perito DEBE denunciar infracciones contra la ley. Hay normas en la empresa que al romperse, no rompen la ley, un ejemplo seria que la empresa no permitiese acceder a páginas como Facebook o sucedáneos, que se te llame para ver si John Doe ha visitado páginas como Facebook. Al revisar, descubres que el empleado ha visitado páginas conocidas por albergar pornografia infantil, fraude fiscal, etc. Es tu deber denunciarlo a la ley.
+
 ---
 
 ## Gestión de un caso forense
