@@ -61,30 +61,26 @@ Porque si no está documentado… no existe.
 - Demostrar cada paso con fotos o capturas.  
 - Herramientas de referencia: Oxygen Forensics, Belkasoft, XRY.
 
----
 
 ## Un equipo de forenses
 - Evita compartir datos sensibles en nubes públicas.  
 - Alternativas recomendadas: File Browser o Nextcloud para nubes privadas.  
 - Recuerda: la nube pública es cómoda… hasta que deja de serlo.
 
----
 
 ## Tipos de peritos
 - Perito judicial: designado por el propio tribunal.  
 - Perito de parte: contratado por alguna de las partes del conflicto; puede estar sesgado.  
 - Perito tercero o dirimente: interviene cuando hay conflicto entre peritos; lo nombra el juez.
 
----
 
 ## Habilidades de los peritos
 - Aseguramiento de la escena.  
 - Recolección y preservación de pruebas.  
 - Manejo de la cadena de custodia.  
 - Análisis técnico y elaboración de dictámenes.  
-- Conocimientos legislativos.  
+- Conocimientos legislativos.
 
----
 
 # Eliminación y recuperación de información
 
